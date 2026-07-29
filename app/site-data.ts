@@ -6,7 +6,7 @@ export const company = {
   whatsapp: "(92) 98292-8686",
   whatsappIntl: "5592982928686",
   hours: "08h às 20h",
-  canonicalUrl: "https://baixo-grau-refrigeracao.pages.dev",
+  canonicalUrl: "https://baixo-grau-refrigeracao.vercel.app",
 };
 
 export const quickInfo = [

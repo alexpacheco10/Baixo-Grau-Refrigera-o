@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://baixo-grau-refrigeracao.pages.dev/sitemap.xml
+Sitemap: https://baixo-grau-refrigeracao.vercel.app/sitemap.xml
