@@ -28,6 +28,14 @@ export const metadata: Metadata = {
     siteName: company.displayName,
     locale: "pt_BR",
     type: "website",
+    images: [
+      {
+        url: "/baixo-grau-logo.jpeg",
+        width: 1254,
+        height: 625,
+        alt: "Baixo Grau Refrigeração e Climatização",
+      },
+    ],
   },
   icons: {
     icon: "/favicon.svg",
