@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { company } from "./site-data";
+import { company, faqs, services } from "./site-data";
 import "./globals.css";
 
 const geist = Geist({
@@ -10,16 +10,31 @@ const geist = Geist({
 });
 
 const title =
-  "Baixo Grau Refrigeração | Refrigeração e Climatização em Manaus";
+  "Baixo Grau Refrigeração | Serviços de Refrigeração em Manaus";
 const description =
-  "Serviços de instalação, manutenção, limpeza e reparo de equipamentos de refrigeração em Manaus. Fale com a Baixo Grau Refrigeração pelo WhatsApp.";
+  "Instalação, manutenção, limpeza e reparo de equipamentos de climatização e refrigeração em Manaus. Conheça os serviços e fale pelo WhatsApp.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.canonicalUrl),
   title,
   description,
+  applicationName: company.displayName,
+  authors: [{ name: company.displayName }],
+  creator: company.displayName,
+  publisher: company.displayName,
   alternates: {
     canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
     title,
@@ -37,28 +52,101 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [
+      {
+        url: "/baixo-grau-logo.jpeg",
+        alt: "Baixo Grau Refrigeração e Climatização",
+      },
+    ],
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#096bb8",
+};
+
 const localBusiness = {
   "@context": "https://schema.org",
-  "@type": "HVACBusiness",
+  "@type": "LocalBusiness",
+  "@id": `${company.canonicalUrl}/#localbusiness`,
   name: company.displayName,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: company.address,
-    addressLocality: "Manaus",
+  description,
+  url: company.canonicalUrl,
+  telephone: `+${company.whatsappIntl}`,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: `+${company.whatsappIntl}`,
+    contactType: "customer service",
+    areaServed: "BR-AM",
+    availableLanguage: "pt-BR",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Manaus",
     addressRegion: "AM",
     addressCountry: "BR",
   },
-  areaServed: "Manaus - AM",
-  telephone: `+${company.whatsappIntl}`,
   openingHours: "Mo-Su 08:00-20:00",
-  url: company.canonicalUrl,
   priceRange: "$$",
+  makesOffer: services.map((service) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: service.name,
+      areaServed: "Manaus - AM",
+      provider: {
+        "@id": `${company.canonicalUrl}/#localbusiness`,
+      },
+    },
+  })),
+};
+
+const webSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${company.canonicalUrl}/#website`,
+  name: company.displayName,
+  url: company.canonicalUrl,
+  inLanguage: "pt-BR",
+};
+
+const webPage = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${company.canonicalUrl}/#webpage`,
+  url: company.canonicalUrl,
+  name: title,
+  description,
+  isPartOf: {
+    "@id": `${company.canonicalUrl}/#website`,
+  },
+  about: {
+    "@id": `${company.canonicalUrl}/#localbusiness`,
+  },
+  inLanguage: "pt-BR",
+};
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
 };
 
 export default function RootLayout({
@@ -71,7 +159,9 @@ export default function RootLayout({
       <body className={`${geist.variable} antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([localBusiness, webSite, webPage, faqPage]),
+          }}
         />
         {children}
       </body>

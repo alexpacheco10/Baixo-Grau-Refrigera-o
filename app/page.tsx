@@ -5,15 +5,14 @@ import { FormEvent, useState } from "react";
 import {
   benefits,
   company,
+  defaultWhatsAppMessage,
   differentials,
+  faqs,
   quickInfo,
   services,
   whatsappUrl,
   type Service,
 } from "./site-data";
-
-const defaultMessage =
-  "Olá! Encontrei a Baixo Grau Refrigeração pelo site e gostaria de saber mais sobre os serviços.";
 
 const heroMessage =
   "Olá! Encontrei a Baixo Grau Refrigeração pelo site e gostaria de solicitar atendimento.";
@@ -145,11 +144,12 @@ function Header() {
     ["Serviços", "#servicos"],
     ["Sobre", "#sobre"],
     ["Contato", "#contato"],
+    ["Dúvidas", "#duvidas"],
   ];
 
   return (
     <header className="site-header">
-      <a className="brand" href="#inicio" aria-label="Baixo Grau Refrigeração">
+      <a className="brand" href="#inicio" aria-label="Página inicial da Baixo Grau Refrigeração">
         <span className="brand-logo">
           <Image src="/baixo-grau-logo-transparent.png" alt="" width={96} height={56} />
         </span>
@@ -172,15 +172,20 @@ function Header() {
         <span />
       </button>
 
-      <nav id="site-menu" className={open ? "nav open" : "nav"}>
+      <nav id="site-menu" className={open ? "nav open" : "nav"} aria-label="Navegação principal">
         {links.map(([label, href]) => (
           <a key={href} href={href} onClick={() => setOpen(false)}>
             {label}
           </a>
         ))}
-        <button type="button" className="btn btn-small" onClick={() => openWhatsApp(defaultMessage)}>
+        <a
+          className="btn btn-small"
+          href={whatsappUrl(defaultWhatsAppMessage)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Falar no WhatsApp
-        </button>
+        </a>
       </nav>
     </header>
   );
@@ -202,14 +207,20 @@ function Hero() {
         </div>
         <div className="hero-copy">
           <p className="eyebrow">Refrigeração em Manaus</p>
-          <h1>Climatização e refrigeração com qualidade e confiança</h1>
+          <h1>Instalação, manutenção e refrigeração em Manaus</h1>
           <p className="hero-text">
-            Serviços profissionais para manter seus equipamentos funcionando com
-            eficiência, segurança e tranquilidade.
+            A Baixo Grau Refrigeração realiza serviços de climatização,
+            refrigeração e manutenção de equipamentos, com atendimento em Manaus
+            e contato direto pelo WhatsApp.
           </p>
-          <button type="button" className="btn btn-large" onClick={() => openWhatsApp(heroMessage)}>
+          <a
+            className="btn btn-large"
+            href={whatsappUrl(heroMessage)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Solicitar atendimento pelo WhatsApp
-          </button>
+          </a>
           <ul className="quick-list" aria-label="Informações rápidas">
             {quickInfo.map((item) => (
               <li key={item}>{item}</li>
@@ -281,10 +292,10 @@ function ServicesSection() {
       <div className="section-shell section-content">
         <div className="section-heading">
           <p className="eyebrow">Serviços técnicos</p>
-          <h2>Nossos serviços</h2>
+          <h2>Serviços de climatização e refrigeração em Manaus</h2>
           <p>
-            Escolha o serviço desejado, informe os detalhes e fale diretamente com
-            um profissional.
+            Escolha o serviço desejado, informe os detalhes do equipamento e fale
+            diretamente pelo WhatsApp. Não há agendamento interno no site.
           </p>
         </div>
         <div className="services-grid">
@@ -371,24 +382,45 @@ function ContactSection() {
       <div>
         <p className="eyebrow">Área de atendimento</p>
         <h2>Atendimento em Manaus - AM</h2>
-        <dl className="contact-list">
-          <div>
-            <dt>Endereço</dt>
-            <dd>{company.address}</dd>
-          </div>
-          <div>
-            <dt>Horário</dt>
-            <dd>{company.hours}</dd>
-          </div>
-          <div>
-            <dt>WhatsApp</dt>
-            <dd>{company.whatsapp}</dd>
-          </div>
-        </dl>
+        <address className="contact-address">
+          <span>{company.displayName}</span>
+          <span>{company.segment}</span>
+          <span>{company.city}</span>
+          <span>WhatsApp: {company.whatsapp}</span>
+          <span>Horário: {company.hours}</span>
+        </address>
       </div>
-      <button type="button" className="btn btn-large" onClick={() => openWhatsApp(defaultMessage)}>
+      <a
+        className="btn btn-large"
+        href={whatsappUrl(defaultWhatsAppMessage)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Falar com um profissional
-      </button>
+      </a>
+    </section>
+  );
+}
+
+function FAQSection() {
+  return (
+    <section id="duvidas" className="faq section-shell">
+      <div className="section-heading">
+        <p className="eyebrow">Perguntas frequentes</p>
+        <h2>Dúvidas sobre atendimento e manutenção</h2>
+        <p>
+          Respostas diretas para ajudar você a entender quando solicitar uma
+          avaliação e como funciona o contato pelo WhatsApp.
+        </p>
+      </div>
+      <div className="faq-list">
+        {faqs.map((faq) => (
+          <details key={faq.question}>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
     </section>
   );
 }
@@ -403,9 +435,14 @@ function FinalCall() {
           Explique o que está acontecendo e receba orientação sobre o atendimento
           adequado para o seu equipamento.
         </p>
-        <button type="button" className="btn btn-light" onClick={() => openWhatsApp(finalMessage)}>
+        <a
+          className="btn btn-light"
+          href={whatsappUrl(finalMessage)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Chamar no WhatsApp
-        </button>
+        </a>
       </div>
     </section>
   );
@@ -417,6 +454,7 @@ function Footer() {
     ["Serviços", "#servicos"],
     ["Sobre", "#sobre"],
     ["Contato", "#contato"],
+    ["Dúvidas", "#duvidas"],
   ];
 
   return (
@@ -424,12 +462,11 @@ function Footer() {
       <div className="section-shell footer-grid">
         <div>
           <strong>{company.displayName}</strong>
-          <p>
+          <address className="footer-address">
             {company.city}<br />
-            {company.address}<br />
             WhatsApp: {company.whatsapp}<br />
             Horário: {company.hours}
-          </p>
+          </address>
         </div>
         <nav aria-label="Links do rodapé">
           {links.map(([label, href]) => (
@@ -437,7 +474,6 @@ function Footer() {
               {label}
             </a>
           ))}
-          <a href="#privacidade">Política de privacidade</a>
         </nav>
         <p className="footer-note">
           © {new Date().getFullYear()} {company.displayName}. Direitos
@@ -458,12 +494,13 @@ export default function Home() {
         <AboutSection />
         <TrustSection />
         <ContactSection />
+        <FAQSection />
         <FinalCall />
       </main>
       <Footer />
       <a
         className="floating-whatsapp"
-        href={whatsappUrl(defaultMessage)}
+        href={whatsappUrl(defaultWhatsAppMessage)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar com a Baixo Grau Refrigeração pelo WhatsApp"

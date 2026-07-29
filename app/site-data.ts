@@ -1,8 +1,8 @@
 export const company = {
   name: "Baixo Grau Refrigeracao",
   displayName: "Baixo Grau Refrigeração",
+  segment: "Climatização, refrigeração e manutenção de equipamentos",
   city: "Manaus - AM",
-  address: "Rua Cerejeira, 457",
   whatsapp: "(92) 98292-8686",
   whatsappIntl: "5592982928686",
   hours: "08h às 20h",
@@ -11,11 +11,14 @@ export const company = {
 
 export const quickInfo = [
   "Atendimento em Manaus",
-  "Horário de atendimento: 08h às 20h",
+  "Horário: 08h às 20h",
   "Atendimento residencial e predial",
   "Orçamento conforme avaliação",
-  "Contato pelo WhatsApp",
+  "Solicitação de atendimento pelo WhatsApp",
 ];
+
+export const defaultWhatsAppMessage =
+  "Olá! Encontrei a Baixo Grau Refrigeração pelo site e gostaria de saber mais sobre os serviços.";
 
 export type Service = {
   id: string;
@@ -32,7 +35,7 @@ export const services: Service[] = [
     name: "Instalação de ar-condicionado",
     shortName: "Instalação",
     description:
-      "Instalação realizada com atenção aos detalhes para garantir o funcionamento adequado e seguro do equipamento.",
+      "Instalação de ar-condicionado em Manaus realizada com atenção aos detalhes para favorecer o funcionamento adequado e seguro do equipamento.",
     price: "Residencial: R$ 300\nPredial: a partir de R$ 300",
     accent: "AC",
   },
@@ -41,7 +44,7 @@ export const services: Service[] = [
     name: "Manutenção preventiva",
     shortName: "Preventiva",
     description:
-      "Revisão periódica para conservar o aparelho, reduzir falhas e manter um bom desempenho.",
+      "Revisão periódica para conservar o aparelho, reduzir falhas e manter um bom desempenho em residências e ambientes prediais.",
     price: "Residencial: a partir de R$ 200\nPredial: a partir de R$ 250",
     accent: "MP",
   },
@@ -50,7 +53,7 @@ export const services: Service[] = [
     name: "Manutenção corretiva",
     shortName: "Corretiva",
     description:
-      "Diagnóstico e correção de defeitos quando o equipamento apresenta falhas ou deixa de funcionar.",
+      "Diagnóstico e correção de defeitos quando o equipamento apresenta falhas, ruídos, perda de rendimento ou deixa de funcionar.",
     price: "Necessário realizar uma avaliação.",
     accent: "MC",
   },
@@ -59,7 +62,7 @@ export const services: Service[] = [
     name: "Limpeza e higienização de ar-condicionado",
     shortName: "Higienização",
     description:
-      "Limpeza dos componentes para melhorar o funcionamento do aparelho e contribuir para a qualidade do ar.",
+      "Limpeza dos componentes para melhorar o funcionamento do aparelho e contribuir para a qualidade do ar no ambiente.",
     price: "Residencial: R$ 200\nPredial: a partir de R$ 200",
     accent: "LH",
   },
@@ -68,7 +71,7 @@ export const services: Service[] = [
     name: "Recarga de gás refrigerante",
     shortName: "Recarga",
     description:
-      "Avaliação do sistema e reposição do gás refrigerante quando tecnicamente necessária.",
+      "Avaliação do sistema e reposição do gás refrigerante quando a necessidade for confirmada por análise técnica.",
     price: "Necessário realizar uma avaliação.",
     accent: "RG",
   },
@@ -115,6 +118,34 @@ export const differentials = [
   "Transparência no serviço",
   "Soluções eficientes",
   "Compromisso com o cliente",
+];
+
+export const faqs = [
+  {
+    question: "Como saber se o ar-condicionado precisa de manutenção?",
+    answer:
+      "Sinais como pouca refrigeração, ruídos, vazamento, mau cheiro ou aumento no consumo podem indicar necessidade de avaliação técnica.",
+  },
+  {
+    question: "Com que frequência devo realizar a limpeza?",
+    answer:
+      "A frequência depende do uso, do ambiente e do estado do equipamento. A necessidade ideal deve ser confirmada após avaliação.",
+  },
+  {
+    question: "O valor do serviço pode mudar após a avaliação?",
+    answer:
+      "Sim. Os valores informados no site são iniciais ou referenciais, e o orçamento final depende do equipamento, local, materiais e complexidade do serviço.",
+  },
+  {
+    question: "A Baixo Grau Refrigeração atende em quais regiões?",
+    answer:
+      "O atendimento divulgado no site é para Manaus - AM. Para confirmar disponibilidade, fale pelo WhatsApp.",
+  },
+  {
+    question: "A recarga de gás é necessária em toda manutenção?",
+    answer:
+      "Não. A recarga só deve ser considerada quando a avaliação técnica indicar necessidade no sistema.",
+  },
 ];
 
 export function whatsappUrl(message: string) {
