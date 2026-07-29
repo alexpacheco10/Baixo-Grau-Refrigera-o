@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://baixo-grau-refrigeracao.pages.dev/sitemap.xml
